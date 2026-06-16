@@ -1,0 +1,615 @@
+/* ============================================================
+   Scout — AI Research Agent · custom styles
+   (Tailwind handles utilities; this file covers the things
+   the CDN build can't easily express: backgrounds, the
+   timeline connectors, spinners, and report typography.)
+   ============================================================ */
+
+:root {
+  --accent: #8b5cf6;
+  --accent-soft: #a78bfa;
+  --panel: rgba(20, 20, 32, 0.72);
+  --panel-border: rgba(255, 255, 255, 0.08);
+}
+
+* { -webkit-font-smoothing: antialiased; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: #0a0a12;
+}
+
+.text-balance { text-wrap: balance; }
+
+/* ---------- Ambient background ---------- */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, #000 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, #000 40%, transparent 100%);
+}
+.bg-glow {
+  background:
+    radial-gradient(600px circle at 15% -5%, rgba(139, 92, 246, 0.16), transparent 55%),
+    radial-gradient(700px circle at 90% 5%, rgba(99, 102, 241, 0.12), transparent 55%);
+}
+
+/* ---------- Panels ---------- */
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.04) inset, 0 20px 50px -30px rgba(0, 0, 0, 0.8);
+}
+
+/* ---------- Logo + decorative dots ---------- */
+.logo-mark {
+  background: linear-gradient(135deg, #8b5cf6, #6366f1);
+  box-shadow: 0 8px 24px -8px rgba(139, 92, 246, 0.65);
+}
+.tech-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+}
+
+/* ---------- Primary run button ---------- */
+.run-btn {
+  background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+  box-shadow: 0 8px 22px -10px rgba(139, 92, 246, 0.8);
+}
+.run-btn:hover:not(:disabled) {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+.run-btn:active:not(:disabled) { transform: translateY(0); }
+.run-btn:disabled { opacity: 0.75; }
+.run-btn.is-loading {
+  background: linear-gradient(135deg, #4c1d95, #5b21b6);
+}
+
+/* ---------- Example chips ---------- */
+.chip {
+  font-size: 0.8125rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 9999px;
+  color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.18s ease;
+}
+.chip:hover {
+  color: #fff;
+  background: rgba(139, 92, 246, 0.16);
+  border-color: rgba(139, 92, 246, 0.45);
+  transform: translateY(-1px);
+}
+.chip:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+/* ---------- Download buttons ---------- */
+.dl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  padding: 0.45rem 0.8rem;
+  border-radius: 0.6rem;
+  color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.16s ease;
+}
+.dl-btn:hover {
+  color: #fff;
+  background: rgba(139, 92, 246, 0.18);
+  border-color: rgba(139, 92, 246, 0.45);
+}
+.dl-btn:active { transform: scale(0.97); }
+
+/* ============================================================
+   AGENT TIMELINE
+   ============================================================ */
+.timeline { position: relative; }
+
+.tl-step {
+  position: relative;
+  padding-left: 2.4rem;
+  padding-bottom: 1.4rem;
+}
+.tl-step:last-child { padding-bottom: 0; }
+
+/* Connector line between dots */
+.tl-step::before {
+  content: "";
+  position: absolute;
+  left: 0.6875rem;
+  top: 1.55rem;
+  bottom: -0.25rem;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: background 0.4s ease;
+}
+.tl-step:last-child::before { display: none; }
+.tl-step.is-complete::before { background: rgba(139, 92, 246, 0.55); }
+
+/* The dot / marker */
+.tl-marker {
+  position: absolute;
+  left: 0;
+  top: 0.1rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 9999px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.14);
+  color: transparent;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+.tl-step.is-active .tl-marker {
+  border-color: var(--accent);
+  background: rgba(139, 92, 246, 0.12);
+}
+.tl-step.is-complete .tl-marker {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
+.tl-marker .check { opacity: 0; transition: opacity 0.2s ease; }
+.tl-step.is-complete .tl-marker .check { opacity: 1; }
+
+/* Spinner shown inside the active marker */
+.tl-marker .spinner {
+  position: absolute;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  border-top-color: var(--accent);
+  border-right-color: var(--accent);
+  opacity: 0;
+  animation: spin 0.8s linear infinite;
+}
+.tl-step.is-active .tl-marker .spinner { opacity: 1; }
+
+/* Labels */
+.tl-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #64748b;
+  transition: color 0.3s ease;
+  line-height: 1.5rem;
+}
+.tl-step.is-active .tl-title { color: #fff; }
+.tl-step.is-complete .tl-title { color: #e2e8f0; }
+
+.tl-msg {
+  font-size: 0.8125rem;
+  color: #94a3b8;
+  margin-top: 0.15rem;
+}
+
+/* Detail area under each step */
+.tl-detail {
+  margin-top: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.tl-detail:empty { display: none; }
+
+/* Plan sub-questions */
+.plan-item {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  color: #cbd5e1;
+  line-height: 1.45;
+  animation: fade-in-up 0.35s ease both;
+}
+.plan-item .q-dot {
+  flex-shrink: 0;
+  margin-top: 0.45rem;
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background: var(--accent-soft);
+}
+
+/* Source chips */
+.source-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.55rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.8125rem;
+  color: #cbd5e1;
+  text-decoration: none;
+  transition: all 0.16s ease;
+  animation: fade-in-up 0.35s ease both;
+}
+.source-chip:hover {
+  background: rgba(139, 92, 246, 0.14);
+  border-color: rgba(139, 92, 246, 0.4);
+  color: #fff;
+}
+.source-chip img {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.08);
+}
+.source-chip .chip-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.source-chip .ext {
+  flex-shrink: 0;
+  margin-left: auto;
+  opacity: 0.5;
+}
+
+/* Review block */
+.review-summary {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #cbd5e1;
+}
+.review-gaps {
+  margin-top: 0.5rem;
+  font-size: 0.8125rem;
+  color: #fbbf24;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.review-gaps .gaps-head {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 600;
+}
+.review-gaps ul { padding-left: 1.1rem; list-style: disc; color: #fcd34d; }
+
+/* ============================================================
+   EMPTY STATE STEP CARDS
+   ============================================================ */
+.step-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 0.85rem 1rem;
+  border-radius: 0.85rem;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.2s ease;
+}
+.step-card:hover {
+  background: rgba(139, 92, 246, 0.07);
+  border-color: rgba(139, 92, 246, 0.25);
+}
+.step-num {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 0.55rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--accent-soft);
+  background: rgba(139, 92, 246, 0.12);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+}
+.step-title { font-size: 0.9375rem; font-weight: 600; color: #e2e8f0; }
+.step-desc { font-size: 0.8125rem; color: #94a3b8; margin-top: 0.1rem; }
+
+/* ============================================================
+   SPINNERS
+   ============================================================ */
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.spinner-sm {
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+  animation: spin 0.7s linear infinite;
+}
+
+/* Live pulse dot */
+.live-pulse {
+  position: relative;
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background: var(--accent-soft);
+}
+.live-pulse::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 9999px;
+  background: rgba(167, 139, 250, 0.5);
+  animation: ping 1.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+@keyframes ping {
+  75%, 100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* Entrance animation */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   ERROR BANNER
+   ============================================================ */
+.error-banner { display: none; }
+.error-banner.show { display: flex; animation: fade-in-up 0.3s ease both; }
+
+/* ============================================================
+   REPORT TYPOGRAPHY
+   ============================================================ */
+.report-article {
+  color: #cbd5e1;
+  font-size: 1.0625rem;
+  line-height: 1.78;
+  max-width: 70ch;
+  margin-inline: auto;
+}
+.report-article > *:first-child { margin-top: 0; }
+
+.report-article h1,
+.report-article h2,
+.report-article h3,
+.report-article h4 {
+  color: #f8fafc;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+.report-article h1 {
+  font-size: 1.85rem;
+  margin: 0 0 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.report-article h2 {
+  font-size: 1.4rem;
+  margin: 2.2rem 0 0.85rem;
+}
+.report-article h3 {
+  font-size: 1.15rem;
+  margin: 1.8rem 0 0.6rem;
+  color: #e2e8f0;
+}
+.report-article p { margin: 0 0 1.1rem; }
+
+.report-article a {
+  color: var(--accent-soft);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(167, 139, 250, 0.35);
+  transition: border-color 0.15s ease;
+}
+.report-article a:hover { border-bottom-color: var(--accent-soft); }
+
+.report-article ul,
+.report-article ol {
+  margin: 0 0 1.2rem;
+  padding-left: 1.5rem;
+}
+.report-article li { margin-bottom: 0.5rem; }
+.report-article ul li { list-style: disc; }
+.report-article ol li { list-style: decimal; }
+.report-article li::marker { color: var(--accent-soft); }
+
+.report-article strong { color: #f1f5f9; font-weight: 600; }
+.report-article em { color: #e2e8f0; }
+
+.report-article blockquote {
+  margin: 1.4rem 0;
+  padding: 0.5rem 1.2rem;
+  border-left: 3px solid var(--accent);
+  background: rgba(139, 92, 246, 0.06);
+  border-radius: 0 0.5rem 0.5rem 0;
+  color: #cbd5e1;
+  font-family: 'Newsreader', Georgia, serif;
+  font-style: italic;
+}
+
+.report-article code {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.875em;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.15em 0.4em;
+  border-radius: 0.35rem;
+  color: #e9d5ff;
+}
+.report-article pre {
+  background: #0a0a12;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
+  padding: 1rem 1.15rem;
+  overflow-x: auto;
+  margin: 0 0 1.2rem;
+}
+.report-article pre code { background: none; padding: 0; color: #cbd5e1; }
+
+.report-article hr {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin: 2rem 0;
+}
+
+.report-article table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 1.3rem;
+  font-size: 0.9375rem;
+}
+.report-article th,
+.report-article td {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.55rem 0.8rem;
+  text-align: left;
+}
+.report-article th { background: rgba(255, 255, 255, 0.04); color: #e2e8f0; font-weight: 600; }
+
+/* Inline [n] citation styling — produced by JS post-processing */
+.report-article .citation {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.05rem;
+  height: 1.05rem;
+  padding: 0 0.28rem;
+  margin: 0 0.08rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  font-feature-settings: "tnum";
+  line-height: 1;
+  vertical-align: super;
+  color: var(--accent-soft);
+  background: rgba(139, 92, 246, 0.16);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 9999px;
+  text-decoration: none;
+  transition: all 0.14s ease;
+}
+.report-article .citation:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+/* Sources section appended after the report */
+.report-sources {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.report-sources h2 {
+  font-size: 1.15rem !important;
+  margin: 0 0 1rem !important;
+  color: #f1f5f9;
+}
+.report-sources ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  counter-reset: src;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.report-sources li {
+  display: flex;
+  gap: 0.65rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  list-style: none;
+  margin: 0;
+}
+.src-num {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent-soft);
+  background: rgba(139, 92, 246, 0.14);
+  border: 1px solid rgba(139, 92, 246, 0.28);
+  border-radius: 0.4rem;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  display: grid;
+  place-items: center;
+  font-feature-settings: "tnum";
+}
+.report-sources a {
+  color: #cbd5e1;
+  text-decoration: none;
+  border: none;
+  word-break: break-word;
+  transition: color 0.15s ease;
+}
+.report-sources a:hover { color: var(--accent-soft); }
+.report-sources .src-host { display: block; font-size: 0.78rem; color: #64748b; margin-top: 0.1rem; }
+
+/* Cursor that blinks during live drafting */
+.draft-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  background: var(--accent-soft);
+  margin-left: 1px;
+  vertical-align: text-bottom;
+  animation: blink 1s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ============================================================
+   PDF EXPORT — temporary light theme on the cloned element
+   ============================================================ */
+.pdf-export {
+  background: #ffffff !important;
+  color: #1e293b !important;
+  padding: 32px 40px !important;
+  max-width: none !important;
+  font-size: 14px !important;
+  line-height: 1.65 !important;
+}
+.pdf-export h1, .pdf-export h2, .pdf-export h3, .pdf-export h4 { color: #0f172a !important; border-color: #e2e8f0 !important; }
+.pdf-export p, .pdf-export li, .pdf-export td { color: #334155 !important; }
+.pdf-export strong { color: #0f172a !important; }
+.pdf-export a { color: #6d28d9 !important; border: none !important; }
+.pdf-export li::marker { color: #7c3aed !important; }
+.pdf-export blockquote { background: #f5f3ff !important; color: #4c1d95 !important; border-left-color: #7c3aed !important; }
+.pdf-export code { background: #f1f5f9 !important; color: #6d28d9 !important; }
+.pdf-export pre { background: #f8fafc !important; border-color: #e2e8f0 !important; }
+.pdf-export pre code { color: #334155 !important; }
+.pdf-export th { background: #f5f3ff !important; color: #0f172a !important; }
+.pdf-export th, .pdf-export td { border-color: #e2e8f0 !important; }
+.pdf-export hr { border-color: #e2e8f0 !important; }
+.pdf-export .citation { color: #6d28d9 !important; background: #ede9fe !important; border-color: #ddd6fe !important; }
+.pdf-export .report-sources { border-color: #e2e8f0 !important; }
+.pdf-export .report-sources h2 { color: #0f172a !important; }
+.pdf-export .src-num { color: #6d28d9 !important; background: #ede9fe !important; border-color: #ddd6fe !important; }
+.pdf-export .report-sources a { color: #334155 !important; }
+.pdf-export .src-host { color: #64748b !important; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1023px) {
+  .report-article { max-width: none; }
+}
+@media (max-width: 640px) {
+  .report-article { font-size: 1rem; }
+  .report-article h1 { font-size: 1.5rem; }
+  .report-article h2 { font-size: 1.25rem; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
