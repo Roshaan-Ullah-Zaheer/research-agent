@@ -31,6 +31,25 @@ body { background-color: #eef2fb; color: var(--ink-2); }
 
 .text-balance { text-wrap: balance; }
 
+/* ---------- Thin, subtle scrollbars (hide the chunky default) ---------- */
+.report-scroll,
+.timeline {
+  scrollbar-width: thin;
+  scrollbar-color: #c4cee0 transparent;
+}
+.report-scroll::-webkit-scrollbar,
+.timeline::-webkit-scrollbar { width: 7px; height: 7px; }
+.report-scroll::-webkit-scrollbar-track { background: transparent; }
+.report-scroll::-webkit-scrollbar-thumb,
+.timeline::-webkit-scrollbar-thumb {
+  background: #cdd6e6;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+.report-scroll:hover::-webkit-scrollbar-thumb,
+.timeline:hover::-webkit-scrollbar-thumb { background: #b6c1d6; background-clip: content-box; }
+
 /* ---------- Ambient light background (animated mesh) ---------- */
 .bg-grid {
   background-image:
@@ -290,8 +309,8 @@ body { background-color: #eef2fb; color: var(--ink-2); }
 
 .step-card {
   --sc: var(--accent);
-  display: flex; align-items: flex-start; gap: 0.85rem;
-  padding: 0.8rem 1rem; border-radius: 0.85rem;
+  display: flex; align-items: flex-start; gap: 0.7rem;
+  padding: 0.6rem 0.8rem; border-radius: 0.75rem;
   background: #f7f9fd;
   border: 1px solid var(--line);
   transition: all 0.2s ease;
@@ -303,14 +322,14 @@ body { background-color: #eef2fb; color: var(--ink-2); }
 }
 .step-num {
   flex-shrink: 0; display: grid; place-items: center;
-  width: 1.75rem; height: 1.75rem;
-  border-radius: 0.55rem;
-  font-size: 0.8125rem; font-weight: 700;
+  width: 1.55rem; height: 1.55rem;
+  border-radius: 0.5rem;
+  font-size: 0.78rem; font-weight: 700;
   color: #fff;
   background: color-mix(in srgb, var(--sc) 90%, #fff);
 }
-.step-title { font-size: 0.9375rem; font-weight: 600; color: var(--ink); }
-.step-desc { font-size: 0.8125rem; color: var(--ink-3); margin-top: 0.1rem; }
+.step-title { font-size: 0.875rem; font-weight: 600; color: var(--ink); }
+.step-desc { font-size: 0.78rem; color: var(--ink-3); margin-top: 0.05rem; line-height: 1.35; }
 
 /* ============================================================
    SPINNERS / PULSES
