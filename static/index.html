@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,28 +13,11 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      darkMode: 'class',
       theme: {
         extend: {
           fontFamily: {
             sans: ['Inter', 'system-ui', 'sans-serif'],
             serif: ['Newsreader', 'Georgia', 'serif'],
-          },
-          colors: {
-            ink: {
-              950: '#070711',
-              900: '#0d0d18',
-              850: '#12121f',
-              800: '#1a1a2a',
-              700: '#24243a',
-              600: '#33334d',
-            },
-            accent: {
-              300: '#c4b5fd',
-              400: '#a78bfa',
-              500: '#8b5cf6',
-              600: '#7c3aed',
-            },
           },
         },
       },
@@ -44,7 +27,7 @@
   <link rel="stylesheet" href="/static/styles.css" />
 </head>
 
-<body class="min-h-screen bg-ink-950 font-sans text-slate-200 antialiased selection:bg-fuchsia-500/30 md:h-screen md:overflow-hidden">
+<body class="min-h-screen bg-[#eef2fb] font-sans text-slate-600 antialiased selection:bg-indigo-200 md:h-screen md:overflow-hidden">
 
   <div class="bg-grid pointer-events-none fixed inset-0 -z-10" aria-hidden="true"></div>
   <div class="bg-glow pointer-events-none fixed inset-0 -z-10" aria-hidden="true"></div>
@@ -61,18 +44,18 @@
           </svg>
         </div>
         <div>
-          <p class="text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-accent-300/80 sm:text-xs">Autonomous Research</p>
+          <p class="text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-indigo-500 sm:text-xs">Autonomous Research</p>
           <h1 class="brand-text text-lg font-extrabold leading-tight sm:text-2xl">
             Scout <span class="brand-sub font-medium">— AI Research Agent</span>
           </h1>
         </div>
       </div>
 
-      <div class="hidden items-center gap-x-4 gap-y-1.5 text-xs text-slate-400 md:flex md:flex-wrap md:justify-end">
-        <span class="inline-flex items-center gap-1.5"><span class="tech-dot bg-emerald-400"></span> Gemini</span>
-        <span class="inline-flex items-center gap-1.5"><span class="tech-dot bg-orange-400"></span> Groq</span>
-        <span class="inline-flex items-center gap-1.5"><span class="tech-dot bg-cyan-400"></span> Tavily</span>
-        <span class="inline-flex items-center gap-1.5"><span class="tech-dot bg-fuchsia-400"></span> Live streaming</span>
+      <div class="hidden items-center gap-x-4 gap-y-1.5 text-xs text-slate-500 md:flex md:flex-wrap md:justify-end">
+        <span class="inline-flex items-center gap-1.5"><span class="tech-dot bg-emerald-500"></span> Gemini</span>
+        <span class="inline-flex items-center gap-1.5"><span class="tech-dot bg-orange-500"></span> Groq</span>
+        <span class="inline-flex items-center gap-1.5"><span class="tech-dot bg-cyan-500"></span> Tavily</span>
+        <span class="inline-flex items-center gap-1.5"><span class="tech-dot bg-fuchsia-500"></span> Live streaming</span>
       </div>
     </header>
 
@@ -81,7 +64,7 @@
       <div class="panel rounded-2xl p-3 sm:p-4">
         <form id="research-form" class="flex flex-col gap-2.5 sm:flex-row sm:items-center sm:gap-3">
           <div class="relative flex-1">
-            <svg class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path>
             </svg>
             <input
@@ -90,7 +73,7 @@
               type="text"
               autocomplete="off"
               placeholder="Ask anything — e.g. Is intermittent fasting effective for weight loss?"
-              class="w-full rounded-xl border border-white/10 bg-ink-900/70 py-3 pl-12 pr-4 text-base text-white placeholder:text-slate-500 outline-none transition focus:border-fuchsia-500/60 focus:ring-2 focus:ring-fuchsia-500/25"
+              class="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-12 pr-4 text-base text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-indigo-400 focus:bg-white focus:ring-2 focus:ring-indigo-200"
               aria-label="Research topic"
             />
           </div>
@@ -112,7 +95,7 @@
         </form>
 
         <div class="mt-3 flex flex-wrap items-center gap-2">
-          <span class="mr-0.5 text-[0.7rem] font-medium uppercase tracking-wider text-slate-500">Try</span>
+          <span class="mr-0.5 text-[0.7rem] font-medium uppercase tracking-wider text-slate-400">Try</span>
           <button type="button" class="chip" data-topic="Is intermittent fasting effective for weight loss?">Intermittent fasting &amp; weight loss</button>
           <button type="button" class="chip" data-topic="Latest advances in solid-state batteries">Solid-state batteries</button>
           <button type="button" class="chip" data-topic="Pros and cons of remote work for productivity">Remote work &amp; productivity</button>
@@ -121,15 +104,15 @@
       </div>
 
       <!-- Error banner -->
-      <div id="error-banner" class="error-banner mt-3 hidden items-start gap-3 rounded-xl border border-red-500/30 bg-red-500/10 p-4" role="alert">
-        <svg class="mt-0.5 shrink-0 text-red-400" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <div id="error-banner" class="error-banner mt-3 hidden items-start gap-3 rounded-xl border border-red-200 bg-red-50 p-4" role="alert">
+        <svg class="mt-0.5 shrink-0 text-red-500" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <circle cx="12" cy="12" r="10"></circle><path d="M12 8v4"></path><path d="M12 16h.01"></path>
         </svg>
         <div class="flex-1">
-          <p class="font-semibold text-red-200">Something went wrong</p>
-          <p id="error-message" class="mt-0.5 text-sm text-red-300/90">The research run could not be completed.</p>
+          <p class="font-semibold text-red-700">Something went wrong</p>
+          <p id="error-message" class="mt-0.5 text-sm text-red-600">The research run could not be completed.</p>
         </div>
-        <button id="error-dismiss" type="button" class="shrink-0 rounded-lg p-1 text-red-300/70 transition hover:bg-red-500/20 hover:text-red-200" aria-label="Dismiss error">
+        <button id="error-dismiss" type="button" class="shrink-0 rounded-lg p-1 text-red-400 transition hover:bg-red-100 hover:text-red-600" aria-label="Dismiss error">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
         </button>
       </div>
@@ -140,9 +123,9 @@
 
       <!-- ---- AGENT TIMELINE ---- -->
       <aside class="panel flex flex-col overflow-hidden rounded-2xl md:min-h-0 md:w-[260px] md:shrink-0 lg:w-[330px]" aria-label="Agent progress timeline">
-        <div class="flex shrink-0 items-center justify-between border-b border-white/10 px-5 py-3.5">
-          <h2 class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Agent timeline</h2>
-          <span id="timeline-status" class="rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 text-xs font-medium text-slate-400">Idle</span>
+        <div class="flex shrink-0 items-center justify-between border-b border-slate-200/80 px-5 py-3.5">
+          <h2 class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Agent timeline</h2>
+          <span id="timeline-status" class="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-0.5 text-xs font-medium text-slate-500">Idle</span>
         </div>
         <ol id="timeline" class="timeline max-h-[40vh] flex-1 overflow-y-auto px-5 py-5 md:max-h-none">
           <!-- Steps injected by JS -->
@@ -153,13 +136,13 @@
       <main class="panel flex min-w-0 flex-1 flex-col overflow-hidden rounded-2xl md:min-h-0" aria-label="Research report">
 
         <!-- Report toolbar -->
-        <div id="report-toolbar" class="flex shrink-0 items-center justify-between gap-3 border-b border-white/10 px-5 py-3.5 sm:px-7">
+        <div id="report-toolbar" class="flex shrink-0 items-center justify-between gap-3 border-b border-slate-200/80 px-5 py-3.5 sm:px-7">
           <div class="flex items-center gap-2.5">
-            <svg class="text-fuchsia-400" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg class="text-violet-500" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><path d="M16 13H8"></path><path d="M16 17H8"></path><path d="M10 9H8"></path>
             </svg>
-            <span class="text-sm font-semibold text-slate-200">Research report</span>
-            <span id="live-badge" class="hidden items-center gap-1.5 rounded-full bg-fuchsia-500/15 px-2.5 py-0.5 text-xs font-medium text-fuchsia-300">
+            <span class="text-sm font-semibold text-slate-800">Research report</span>
+            <span id="live-badge" class="hidden items-center gap-1.5 rounded-full bg-violet-100 px-2.5 py-0.5 text-xs font-medium text-violet-700">
               <span class="live-pulse"></span> Drafting live
             </span>
           </div>
@@ -186,16 +169,16 @@
                   <path d="M12 3a6 6 0 0 0-6 6c0 1.5.5 2.5 1.5 3.5.7.7 1.5 1.5 1.5 3v1h6v-1c0-1.5.8-2.3 1.5-3 1-1 1.5-2 1.5-3.5a6 6 0 0 0-6-6Z"></path><path d="M9 21h6"></path><path d="M10 18h4"></path>
                 </svg>
               </div>
-              <h3 class="text-lg font-semibold text-white">Your answer will appear here</h3>
-              <p class="mt-2 text-sm text-slate-400">Scout runs a full research workflow for every question — here's what happens behind the scenes:</p>
+              <h3 class="text-lg font-semibold text-slate-900">Your answer will appear here</h3>
+              <p class="mt-2 text-sm text-slate-500">Scout runs a full research workflow for every question — here's what happens behind the scenes:</p>
             </div>
 
             <ol class="mx-auto mt-7 grid max-w-xl gap-2.5 sm:grid-cols-2">
-              <li class="step-card" style="--sc:#6366f1"><span class="step-num">1</span><div><p class="step-title">Plans the investigation</p><p class="step-desc">Breaks your question into focused sub-questions.</p></div></li>
-              <li class="step-card" style="--sc:#06b6d4"><span class="step-num">2</span><div><p class="step-title">Searches the web</p><p class="step-desc">Queries live sources for each sub-question.</p></div></li>
-              <li class="step-card" style="--sc:#3b82f6"><span class="step-num">3</span><div><p class="step-title">Reads the sources</p><p class="step-desc">Extracts the relevant facts and evidence.</p></div></li>
-              <li class="step-card" style="--sc:#8b5cf6"><span class="step-num">4</span><div><p class="step-title">Writes a cited answer</p><p class="step-desc">Answers directly, with inline citations.</p></div></li>
-              <li class="step-card sm:col-span-2" style="--sc:#f59e0b"><span class="step-num">5</span><div><p class="step-title">Reviews its own work</p><p class="step-desc">Checks for gaps and researches further if needed.</p></div></li>
+              <li class="step-card" style="--sc:#4f46e5"><span class="step-num">1</span><div><p class="step-title">Plans the investigation</p><p class="step-desc">Breaks your question into focused sub-questions.</p></div></li>
+              <li class="step-card" style="--sc:#0891b2"><span class="step-num">2</span><div><p class="step-title">Searches the web</p><p class="step-desc">Queries live sources for each sub-question.</p></div></li>
+              <li class="step-card" style="--sc:#2563eb"><span class="step-num">3</span><div><p class="step-title">Reads the sources</p><p class="step-desc">Extracts the relevant facts and evidence.</p></div></li>
+              <li class="step-card" style="--sc:#7c3aed"><span class="step-num">4</span><div><p class="step-title">Writes a cited answer</p><p class="step-desc">Answers directly, with inline citations.</p></div></li>
+              <li class="step-card sm:col-span-2" style="--sc:#d97706"><span class="step-num">5</span><div><p class="step-title">Reviews its own work</p><p class="step-desc">Checks for gaps and researches further if needed.</p></div></li>
             </ol>
           </div>
 
