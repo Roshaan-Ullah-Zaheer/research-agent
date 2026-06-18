@@ -8,17 +8,14 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: {
-            sans: ['Inter', 'system-ui', 'sans-serif'],
-            serif: ['Newsreader', 'Georgia', 'serif'],
-          },
+          fontFamily: { sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'] },
         },
       },
     };
@@ -27,44 +24,41 @@
   <link rel="stylesheet" href="/static/styles.css" />
 </head>
 
-<body class="min-h-screen bg-[#eef2fb] font-sans text-slate-600 antialiased selection:bg-indigo-200 md:h-screen md:overflow-hidden">
+<body class="font-sans text-slate-600 antialiased">
 
   <div class="bg-grid pointer-events-none fixed inset-0 -z-10" aria-hidden="true"></div>
   <div class="bg-glow pointer-events-none fixed inset-0 -z-10" aria-hidden="true"></div>
 
-  <div class="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-4 sm:px-6 md:h-screen">
+  <div class="app flex h-[100dvh] flex-col">
 
-    <!-- ============ COMPACT HEADER ============ -->
-    <header class="flex shrink-0 items-center justify-between gap-4 py-4 sm:py-5">
-      <div class="flex items-center gap-3">
-        <div class="logo-mark grid h-10 w-10 shrink-0 place-items-center rounded-xl text-white sm:h-11 sm:w-11">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="11" cy="11" r="7"></circle>
-            <path d="m21 21-4.3-4.3"></path>
-          </svg>
+    <!-- ============ HEADER ============ -->
+    <header class="shrink-0">
+      <div class="mx-auto flex w-full max-w-3xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6">
+        <div class="flex items-center gap-2.5">
+          <div class="logo-mark grid h-9 w-9 shrink-0 place-items-center rounded-xl text-white">
+            <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path>
+            </svg>
+          </div>
+          <div class="leading-tight">
+            <h1 class="brand-text text-base font-extrabold sm:text-lg">Scout</h1>
+            <p class="text-[0.7rem] font-medium text-slate-400">AI Research Agent</p>
+          </div>
         </div>
-        <div>
-          <p class="text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-indigo-500 sm:text-xs">Autonomous Research</p>
-          <h1 class="brand-text text-lg font-extrabold leading-tight sm:text-2xl">
-            Scout <span class="brand-sub font-medium">— AI Research Agent</span>
-          </h1>
+        <div class="hidden items-center gap-x-3.5 text-xs text-slate-500 sm:flex">
+          <span class="inline-flex items-center gap-1.5"><span class="tech-dot bg-emerald-500"></span> Gemini</span>
+          <span class="inline-flex items-center gap-1.5"><span class="tech-dot bg-orange-500"></span> Groq</span>
+          <span class="inline-flex items-center gap-1.5"><span class="tech-dot bg-cyan-500"></span> Tavily</span>
         </div>
-      </div>
-
-      <div class="hidden items-center gap-x-4 gap-y-1.5 text-xs text-slate-500 md:flex md:flex-wrap md:justify-end">
-        <span class="inline-flex items-center gap-1.5"><span class="tech-dot bg-emerald-500"></span> Gemini</span>
-        <span class="inline-flex items-center gap-1.5"><span class="tech-dot bg-orange-500"></span> Groq</span>
-        <span class="inline-flex items-center gap-1.5"><span class="tech-dot bg-cyan-500"></span> Tavily</span>
-        <span class="inline-flex items-center gap-1.5"><span class="tech-dot bg-fuchsia-500"></span> Live streaming</span>
       </div>
     </header>
 
-    <!-- ============ SEARCH / INPUT CARD ============ -->
-    <section class="shrink-0" aria-label="Research topic">
-      <div class="panel rounded-2xl p-3 sm:p-4">
-        <form id="research-form" class="flex flex-col gap-2.5 sm:flex-row sm:items-center sm:gap-3">
-          <div class="relative flex-1">
-            <svg class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <!-- ============ COMPOSER (pinned) ============ -->
+    <div class="shrink-0">
+      <div class="mx-auto w-full max-w-3xl px-4 pb-3 sm:px-6">
+        <div class="composer rounded-2xl p-2.5">
+          <form id="research-form" class="flex items-center gap-2">
+            <svg class="pointer-events-none ml-2 shrink-0 text-slate-400" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path>
             </svg>
             <input
@@ -73,121 +67,101 @@
               type="text"
               autocomplete="off"
               placeholder="Ask anything — e.g. Is intermittent fasting effective for weight loss?"
-              class="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-12 pr-4 text-base text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-indigo-400 focus:bg-white focus:ring-2 focus:ring-indigo-200"
+              class="min-w-0 flex-1 bg-transparent py-2 text-base text-slate-900 placeholder:text-slate-400 outline-none"
               aria-label="Research topic"
             />
-          </div>
-          <button
-            id="run-btn"
-            type="submit"
-            class="run-btn group inline-flex shrink-0 items-center justify-center gap-2 rounded-xl px-6 py-3 text-base font-semibold text-white transition disabled:cursor-not-allowed"
-          >
-            <span class="btn-label inline-flex items-center gap-2">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path>
-              </svg>
-              Run research
-            </span>
-            <span class="btn-loading hidden items-center gap-2">
-              <span class="spinner-sm"></span> Researching…
-            </span>
-          </button>
-        </form>
+            <button
+              id="run-btn"
+              type="submit"
+              class="run-btn group inline-flex shrink-0 items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold text-white transition disabled:cursor-not-allowed sm:px-5"
+            >
+              <span class="btn-label inline-flex items-center gap-2">
+                <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+                <span class="hidden sm:inline">Research</span>
+              </span>
+              <span class="btn-loading hidden items-center gap-2">
+                <span class="spinner-sm"></span> <span class="hidden sm:inline">Researching…</span>
+              </span>
+            </button>
+          </form>
+        </div>
 
-        <div class="mt-3 flex flex-wrap items-center gap-2">
-          <span class="mr-0.5 text-[0.7rem] font-medium uppercase tracking-wider text-slate-400">Try</span>
-          <button type="button" class="chip" data-topic="Is intermittent fasting effective for weight loss?">Intermittent fasting &amp; weight loss</button>
+        <div class="mt-2.5 flex flex-wrap items-center gap-2">
+          <span class="text-[0.7rem] font-medium uppercase tracking-wider text-slate-400">Try</span>
+          <button type="button" class="chip" data-topic="Is intermittent fasting effective for weight loss?">Intermittent fasting</button>
           <button type="button" class="chip" data-topic="Latest advances in solid-state batteries">Solid-state batteries</button>
-          <button type="button" class="chip" data-topic="Pros and cons of remote work for productivity">Remote work &amp; productivity</button>
-          <button type="button" class="chip" data-topic="How effective are GLP-1 drugs like Ozempic for long-term health?">GLP-1 drugs long-term</button>
+          <button type="button" class="chip" data-topic="Pros and cons of remote work for productivity">Remote work</button>
+          <button type="button" class="chip" data-topic="How effective are GLP-1 drugs like Ozempic for long-term health?">GLP-1 drugs</button>
+        </div>
+
+        <div id="error-banner" class="error-banner mt-3 hidden items-start gap-3 rounded-xl border border-red-200 bg-red-50 p-3.5" role="alert">
+          <svg class="mt-0.5 shrink-0 text-red-500" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4"></path><path d="M12 16h.01"></path></svg>
+          <div class="flex-1">
+            <p class="text-sm font-semibold text-red-700">Something went wrong</p>
+            <p id="error-message" class="mt-0.5 text-sm text-red-600">The research run could not be completed.</p>
+          </div>
+          <button id="error-dismiss" type="button" class="shrink-0 rounded-lg p-1 text-red-400 transition hover:bg-red-100 hover:text-red-600" aria-label="Dismiss error">
+            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+          </button>
         </div>
       </div>
-
-      <!-- Error banner -->
-      <div id="error-banner" class="error-banner mt-3 hidden items-start gap-3 rounded-xl border border-red-200 bg-red-50 p-4" role="alert">
-        <svg class="mt-0.5 shrink-0 text-red-500" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="10"></circle><path d="M12 8v4"></path><path d="M12 16h.01"></path>
-        </svg>
-        <div class="flex-1">
-          <p class="font-semibold text-red-700">Something went wrong</p>
-          <p id="error-message" class="mt-0.5 text-sm text-red-600">The research run could not be completed.</p>
-        </div>
-        <button id="error-dismiss" type="button" class="shrink-0 rounded-lg p-1 text-red-400 transition hover:bg-red-100 hover:text-red-600" aria-label="Dismiss error">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
-        </button>
-      </div>
-    </section>
-
-    <!-- ============ WORKSPACE: TIMELINE + REPORT (fills remaining viewport) ============ -->
-    <div class="mt-4 flex flex-1 flex-col gap-4 pb-4 md:min-h-0 md:flex-row">
-
-      <!-- ---- AGENT TIMELINE ---- -->
-      <aside class="panel flex flex-col overflow-hidden rounded-2xl md:min-h-0 md:w-[260px] md:shrink-0 lg:w-[330px]" aria-label="Agent progress timeline">
-        <div class="flex shrink-0 items-center justify-between border-b border-slate-200/80 px-5 py-3.5">
-          <h2 class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Agent timeline</h2>
-          <span id="timeline-status" class="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-0.5 text-xs font-medium text-slate-500">Idle</span>
-        </div>
-        <ol id="timeline" class="timeline max-h-[40vh] flex-1 overflow-y-auto px-5 py-5 md:max-h-none">
-          <!-- Steps injected by JS -->
-        </ol>
-      </aside>
-
-      <!-- ---- REPORT PANEL ---- -->
-      <main class="panel flex min-w-0 flex-1 flex-col overflow-hidden rounded-2xl md:min-h-0" aria-label="Research report">
-
-        <!-- Report toolbar -->
-        <div id="report-toolbar" class="flex shrink-0 items-center justify-between gap-3 border-b border-slate-200/80 px-5 py-3.5 sm:px-7">
-          <div class="flex items-center gap-2.5">
-            <svg class="text-violet-500" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><path d="M16 13H8"></path><path d="M16 17H8"></path><path d="M10 9H8"></path>
-            </svg>
-            <span class="text-sm font-semibold text-slate-800">Research report</span>
-            <span id="live-badge" class="hidden items-center gap-1.5 rounded-full bg-violet-100 px-2.5 py-0.5 text-xs font-medium text-violet-700">
-              <span class="live-pulse"></span> Drafting live
-            </span>
-          </div>
-
-          <div id="download-actions" class="hidden items-center gap-2">
-            <button id="download-md" type="button" class="dl-btn" title="Download as Markdown">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="M7 10l5 5 5-5"></path><path d="M12 15V3"></path></svg>
-              <span class="hidden sm:inline">Markdown</span>
-            </button>
-            <button id="download-pdf" type="button" class="dl-btn" title="Download as PDF">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path></svg>
-              <span class="hidden sm:inline">PDF</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Scrollable report body -->
-        <div class="report-scroll flex-1 overflow-y-auto">
-          <!-- Empty / placeholder state -->
-          <div id="empty-state" class="px-6 py-6 sm:px-10 sm:py-7">
-            <div class="mx-auto max-w-md text-center">
-              <div class="orb mx-auto mb-3.5 grid h-12 w-12 place-items-center rounded-2xl text-white">
-                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M12 3a6 6 0 0 0-6 6c0 1.5.5 2.5 1.5 3.5.7.7 1.5 1.5 1.5 3v1h6v-1c0-1.5.8-2.3 1.5-3 1-1 1.5-2 1.5-3.5a6 6 0 0 0-6-6Z"></path><path d="M9 21h6"></path><path d="M10 18h4"></path>
-                </svg>
-              </div>
-              <h3 class="text-base font-semibold text-slate-900">Your answer will appear here</h3>
-              <p class="mx-auto mt-1.5 max-w-sm text-sm text-slate-500">Scout runs a full research workflow for every question — here's what happens behind the scenes:</p>
-            </div>
-
-            <ol class="mx-auto mt-4 grid max-w-xl gap-2 sm:grid-cols-2">
-              <li class="step-card" style="--sc:#4f46e5"><span class="step-num">1</span><div><p class="step-title">Plans the investigation</p><p class="step-desc">Breaks your question into focused sub-questions.</p></div></li>
-              <li class="step-card" style="--sc:#0891b2"><span class="step-num">2</span><div><p class="step-title">Searches the web</p><p class="step-desc">Queries live sources for each sub-question.</p></div></li>
-              <li class="step-card" style="--sc:#2563eb"><span class="step-num">3</span><div><p class="step-title">Reads the sources</p><p class="step-desc">Extracts the relevant facts and evidence.</p></div></li>
-              <li class="step-card" style="--sc:#7c3aed"><span class="step-num">4</span><div><p class="step-title">Writes a cited answer</p><p class="step-desc">Answers directly, with inline citations.</p></div></li>
-              <li class="step-card sm:col-span-2" style="--sc:#d97706"><span class="step-num">5</span><div><p class="step-title">Reviews its own work</p><p class="step-desc">Checks for gaps and researches further if needed.</p></div></li>
-            </ol>
-          </div>
-
-          <!-- Rendered report -->
-          <article id="report-article" class="report-article hidden px-6 py-7 sm:px-10 sm:py-9"></article>
-        </div>
-      </main>
-
     </div>
+
+    <!-- ============ FLOW (single auto-scrolling column, hidden scrollbar) ============ -->
+    <div id="flow" class="flow relative flex-1 overflow-y-auto">
+      <div class="mx-auto w-full max-w-3xl px-4 pb-28 pt-2 sm:px-6">
+
+        <!-- Idle / empty state -->
+        <div id="empty-state" class="flex flex-col items-center pt-[8vh] text-center">
+          <div class="orb mb-5 grid h-16 w-16 place-items-center rounded-2xl text-white">
+            <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 3a6 6 0 0 0-6 6c0 1.5.5 2.5 1.5 3.5.7.7 1.5 1.5 1.5 3v1h6v-1c0-1.5.8-2.3 1.5-3 1-1 1.5-2 1.5-3.5a6 6 0 0 0-6-6Z"></path><path d="M9 21h6"></path><path d="M10 18h4"></path>
+            </svg>
+          </div>
+          <h2 class="text-xl font-bold text-slate-900 sm:text-2xl">What should I research?</h2>
+          <p class="mx-auto mt-2 max-w-md text-[0.95rem] text-slate-500">Ask a question and watch Scout plan, search the web, read sources, write a cited answer, and review its own work — live.</p>
+        </div>
+
+        <!-- Agent process (streams in while running) -->
+        <section id="process" class="proc hidden">
+          <div class="proc-head">
+            <span class="proc-spin"></span>
+            <span class="proc-label">Researching</span>
+            <span id="timeline-status" class="proc-status">Working…</span>
+          </div>
+          <ol id="timeline" class="timeline"></ol>
+        </section>
+
+        <!-- Report -->
+        <section id="report-card" class="report-card hidden">
+          <div class="report-head">
+            <div class="flex items-center gap-2.5">
+              <svg class="text-violet-500" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><path d="M16 13H8"></path><path d="M16 17H8"></path><path d="M10 9H8"></path></svg>
+              <span class="text-sm font-semibold text-slate-800">Research report</span>
+              <span id="live-badge" class="hidden items-center gap-1.5 rounded-full bg-violet-100 px-2.5 py-0.5 text-xs font-medium text-violet-700"><span class="live-pulse"></span> Drafting live</span>
+            </div>
+            <div id="download-actions" class="hidden items-center gap-2">
+              <button id="download-md" type="button" class="dl-btn" title="Download as Markdown">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="M7 10l5 5 5-5"></path><path d="M12 15V3"></path></svg>
+                <span class="hidden sm:inline">Markdown</span>
+              </button>
+              <button id="download-pdf" type="button" class="dl-btn" title="Download as PDF">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path></svg>
+                <span class="hidden sm:inline">PDF</span>
+              </button>
+            </div>
+          </div>
+          <article id="report-article" class="report-article"></article>
+        </section>
+
+      </div>
+
+      <!-- Jump-to-latest (shows only when user scrolled up during a run) -->
+      <button id="jump-latest" class="jump-latest hidden" aria-label="Jump to latest">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg>
+      </button>
+    </div>
+
   </div>
 
   <!-- Libraries -->

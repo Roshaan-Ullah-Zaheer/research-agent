@@ -21,6 +21,10 @@
   const errorMessage = document.getElementById('error-message');
   const errorDismiss = document.getElementById('error-dismiss');
   const chips = document.querySelectorAll('.chip');
+  const flowEl = document.getElementById('flow');
+  const processEl = document.getElementById('process');
+  const reportCard = document.getElementById('report-card');
+  const jumpBtn = document.getElementById('jump-latest');
 
   /* ---------- Timeline phase definitions ---------- */
   const PHASES = [
@@ -344,14 +348,22 @@
   /* ============================================================
      Panel visibility
      ============================================================ */
+  function showProcess() {
+    emptyState.classList.add('hidden');
+    processEl.classList.remove('hidden');
+    reportCard.classList.add('hidden');
+  }
+
   function showReportArea() {
     emptyState.classList.add('hidden');
-    reportArticle.classList.remove('hidden');
+    processEl.classList.remove('hidden');
+    reportCard.classList.remove('hidden');
   }
 
   function showEmptyState() {
     emptyState.classList.remove('hidden');
-    reportArticle.classList.add('hidden');
+    processEl.classList.add('hidden');
+    reportCard.classList.add('hidden');
     reportArticle.innerHTML = '';
   }
 
@@ -399,7 +411,10 @@
     buildTimeline(false);
     setActivePhase('planning', 'Starting up…');
     setStatusPill('planning');
-    showEmptyState();
+    showProcess();
+    stickToBottom = true;
+    flowEl.scrollTop = 0;
+    if (jumpBtn) jumpBtn.classList.add('hidden');
     downloadActions.classList.add('hidden');
     downloadActions.classList.remove('flex');
 
@@ -477,6 +492,12 @@
       downloadActions.classList.add('flex');
     }
     finishRun();
+    // Settle on the finished report (its title), and stop auto-following.
+    stickToBottom = false;
+    if (jumpBtn) jumpBtn.classList.add('hidden');
+    if (reportCard && !reportCard.classList.contains('hidden')) {
+      reportCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 
   function finishRun() {
@@ -613,6 +634,39 @@
     }
   });
 
-  /* Build an initial (idle) timeline so the panel isn't empty. */
+  /* ============================================================
+     Auto-scroll: follow the newest content while running; pause the
+     moment the user scrolls up; resume when they return to the bottom.
+     ============================================================ */
+  let stickToBottom = true;
+
+  function nearBottom() {
+    return flowEl.scrollHeight - flowEl.scrollTop - flowEl.clientHeight < 90;
+  }
+  function scrollToBottom(smooth) {
+    flowEl.scrollTo({ top: flowEl.scrollHeight, behavior: smooth ? 'smooth' : 'auto' });
+  }
+  function updateJumpBtn() {
+    if (jumpBtn) jumpBtn.classList.toggle('hidden', !(isRunning && !stickToBottom));
+  }
+
+  flowEl.addEventListener('scroll', function () {
+    stickToBottom = nearBottom();
+    updateJumpBtn();
+  });
+  if (jumpBtn) {
+    jumpBtn.addEventListener('click', function () {
+      stickToBottom = true;
+      scrollToBottom(true);
+      updateJumpBtn();
+    });
+  }
+  // As steps / sources / the report stream in, keep the latest in view.
+  new MutationObserver(function () {
+    if (stickToBottom) scrollToBottom(false);
+    updateJumpBtn();
+  }).observe(flowEl, { childList: true, subtree: true, characterData: true });
+
+  /* Build an initial (idle) timeline so it's ready when a run starts. */
   buildTimeline(false);
 })();
