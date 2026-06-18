@@ -52,8 +52,16 @@ body { background-color: #eef2fb; color: var(--ink-2); }
   -webkit-background-clip: text; background-clip: text; color: transparent;
 }
 
-/* ---------- Flow: single auto-scrolling column, no visible scrollbar ---------- */
-.flow { scrollbar-width: none; -ms-overflow-style: none; scroll-behavior: smooth; }
+/* ---------- Flow: single auto-scrolling column, no visible scrollbar ----------
+   A soft mask fades content at the top/bottom edges so nothing looks hard-cut
+   as it scrolls under the composer. */
+.flow {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-behavior: smooth;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 28px, #000 calc(100% - 22px), transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 28px, #000 calc(100% - 22px), transparent 100%);
+}
 .flow::-webkit-scrollbar { width: 0; height: 0; display: none; }
 
 /* ---------- Logo + dots ---------- */

@@ -257,7 +257,7 @@ async def run_research(topic: str) -> AsyncGenerator[dict, None]:
             system=WRITER_SYSTEM,
             prompt=_writer_prompt(topic, context),
             temperature=0.4,
-            max_tokens=2000,
+            max_tokens=4000,
         )
         yield {"type": "draft", "markdown": report_md}
 
@@ -342,7 +342,7 @@ async def run_research(topic: str) -> AsyncGenerator[dict, None]:
                 system=WRITER_SYSTEM,
                 prompt=_writer_prompt(topic, context),
                 temperature=0.4,
-                max_tokens=2000,
+                max_tokens=4000,
             )
             yield {"type": "draft", "markdown": report_md}
 
