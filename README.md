@@ -10,7 +10,7 @@
 [![Gemini](https://img.shields.io/badge/Google-Gemini-4285F4?logo=google&logoColor=white)](https://ai.google.dev/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-### 🔗 [**Live Demo**](https://research-agent.onrender.com) &nbsp;·&nbsp; a multi-step research agent with a live, watchable pipeline
+### 🔗 [**Live Demo**](https://research-agent-8042.onrender.com) &nbsp;·&nbsp; a multi-step research agent with a live, watchable pipeline
 
 </div>
 
@@ -35,26 +35,24 @@ Then you get a clean, cited report you can **download as Markdown or PDF**.
 - 🛡️ **Resilient on free tiers** — a multi-key Gemini → Groq fallback chain keeps it working even when a key hits its daily limit.
 - 📥 **Export** — download the finished report as `.md` or `.pdf`.
 
-> 🎬 **[Try the live demo →](https://research-agent.onrender.com)** — ask it any research question and watch it work.
+> 🎬 **[Try the live demo →](https://research-agent-8042.onrender.com)** — ask it any research question and watch it work.
 
 ---
 
 ## 📸 Screenshots
 
-> 🎬 See it in action on the **[live demo](https://research-agent.onrender.com)**.
+> 🎬 See it in action on the **[live demo](https://research-agent-8042.onrender.com)**.
 
-<!-- Screenshot gallery (added after deploy):
 <table>
   <tr>
-    <td width="50%"><img src="docs/01-home.png" alt="Topic input with example questions"/><br/><sub><b>Ask anything</b> — enter a question or pick an example.</sub></td>
-    <td width="50%"><img src="docs/02-timeline.png" alt="Live agent timeline streaming each step"/><br/><sub><b>Live agent timeline</b> — watch it plan, search, read, write, and review.</sub></td>
+    <td width="50%"><img src="docs/01-plan.png" alt="Agent breaking the question into focused sub-questions"/><br/><sub><b>Plans the investigation</b> — breaks your question into focused, searchable sub-questions.</sub></td>
+    <td width="50%"><img src="docs/02-search.png" alt="Live web search streaming real sources"/><br/><sub><b>Searches the web</b> — queries Tavily and streams in real sources as it finds them.</sub></td>
   </tr>
   <tr>
-    <td width="50%"><img src="docs/03-review.png" alt="Self-review step finding gaps and researching again"/><br/><sub><b>Self-correction</b> — it critiques its own draft and researches the gaps.</sub></td>
-    <td width="50%"><img src="docs/04-report.png" alt="Final cited report with sources and download buttons"/><br/><sub><b>Cited report</b> — grounded answer with sources + Markdown/PDF export.</sub></td>
+    <td width="50%"><img src="docs/03-review.png" alt="Self-review step critiquing the draft before finishing"/><br/><sub><b>Reviews its own work</b> — critiques the draft for gaps and researches again if needed.</sub></td>
+    <td width="50%"><img src="docs/04-report.png" alt="Final cited report with inline citations and sources"/><br/><sub><b>Cited report</b> — a grounded answer with inline citations + sources, exportable as Markdown or PDF.</sub></td>
   </tr>
 </table>
--->
 
 ---
 
