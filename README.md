@@ -1,3 +1,14 @@
+---
+title: Scout
+emoji: 🔭
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+app_port: 7860
+pinned: false
+license: mit
+---
+
 <div align="center">
 
 # 🔬 Scout — AI Research Agent
@@ -10,7 +21,7 @@
 [![Gemini](https://img.shields.io/badge/Google-Gemini-4285F4?logo=google&logoColor=white)](https://ai.google.dev/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-### 🔗 [**Live Demo**](https://research-agent-8042.onrender.com) &nbsp;·&nbsp; a multi-step research agent with a live, watchable pipeline
+### 🔗 [**Live Demo**](https://roshaanullahzaheer-scout.hf.space) &nbsp;·&nbsp; a multi-step research agent with a live, watchable pipeline
 
 </div>
 
@@ -35,13 +46,13 @@ Then you get a clean, cited report you can **download as Markdown or PDF**.
 - 🛡️ **Resilient on free tiers** — a multi-key Gemini → Groq fallback chain keeps it working even when a key hits its daily limit.
 - 📥 **Export** — download the finished report as `.md` or `.pdf`.
 
-> 🎬 **[Try the live demo →](https://research-agent-8042.onrender.com)** — ask it any research question and watch it work.
+> 🎬 **[Try the live demo →](https://roshaanullahzaheer-scout.hf.space)** — ask it any research question and watch it work.
 
 ---
 
 ## 📸 Screenshots
 
-> 🎬 See it in action on the **[live demo](https://research-agent-8042.onrender.com)**.
+> 🎬 See it in action on the **[live demo](https://roshaanullahzaheer-scout.hf.space)**.
 
 <table>
   <tr>
@@ -102,7 +113,7 @@ flowchart TD
 | Web search | **Tavily** | Agent-grade search that returns clean, readable content |
 | Validation | **Pydantic v2** | Structured, type-safe agent outputs (plan + review) |
 | Frontend | **Vanilla JS + Tailwind (CDN)**, `marked`, `html2pdf.js` | Zero build step; a polished, single-file UI |
-| Hosting | **Render** (free tier) | One-file blueprint deploy, live public URL |
+| Hosting | **Hugging Face Spaces** (Docker, free tier) | Persistent server, generous free CPU + RAM, live public URL |
 
 > **Provider-agnostic & resilient by design.** Every model call goes through one fallback chain in [`app/llm.py`](app/llm.py): each Gemini key is tried with `gemini-2.5-flash` then `gemini-2.5-flash-lite`, across every key, then **Groq** as a last resort. If one key hits its free-tier limit, the next takes over automatically.
 
@@ -165,14 +176,14 @@ uvicorn app.main:app --reload     # http://localhost:8000
 
 ---
 
-## ☁️ Deploy to Render (free)
+## ☁️ Deploy to Hugging Face Spaces (free)
 
-This repo ships a [`render.yaml`](render.yaml) blueprint, so deploying is one click:
+This repo ships a [`Dockerfile`](Dockerfile) and a Space config (the front-matter at the top of this README), so it runs as a Docker Space:
 
-1. Push this repo to GitHub.
-2. Go to **https://dashboard.render.com** → **New → Blueprint**, and pick this repo.
-3. Render reads `render.yaml` and creates the web service. Add your secrets when prompted: `GOOGLE_API_KEYS`, `GROQ_API_KEY`, `TAVILY_API_KEY`.
-4. Deploy. Render gives you a live `https://….onrender.com` URL.
+1. Create a new Space at **https://huggingface.co/new-space** — choose the **Docker** SDK (blank template).
+2. Push this repo to the Space's git remote (or import it from GitHub).
+3. In **Settings → Variables and secrets**, add `GOOGLE_API_KEYS`, `GROQ_API_KEY`, and `TAVILY_API_KEY` as **Secrets**.
+4. The Space builds the image and serves the app on port `7860`, giving you a live `https://<user>-<space>.hf.space` URL.
 
 ---
 
@@ -203,7 +214,7 @@ research-agent/
 │   ├── app.js         # SSE client, live timeline, report rendering, downloads
 │   └── styles.css     # timeline, citations, and report styling
 ├── requirements.txt
-├── render.yaml        # Render deploy blueprint
+├── Dockerfile         # container image for Hugging Face Spaces
 └── .env.example
 ```
 

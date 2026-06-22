@@ -23,7 +23,7 @@ logging.basicConfig(
 logger = logging.getLogger("research_agent.api")
 
 # Resolve the static directory from this file's location so it works regardless
-# of the current working directory (e.g. when started by uvicorn on Render).
+# of the current working directory (e.g. when started by uvicorn in the container).
 STATIC_DIR = Path(__file__).resolve().parent.parent / "static"
 
 app = FastAPI(
