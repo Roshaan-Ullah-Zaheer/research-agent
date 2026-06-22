@@ -1,0 +1,20 @@
+name: keep-alive
+
+# Pings the live demo so the free Render service doesn't spin down.
+# Render's free tier sleeps after ~15 min of inactivity and cold-starts on the
+# next request. GitHub's scheduled runs can be delayed under load, so this is a
+# best-effort backup — an external uptime monitor (every ~5 min) is more
+# reliable for keeping the service warm.
+on:
+  schedule:
+    - cron: "*/10 * * * *" # every 10 minutes
+  workflow_dispatch: {}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping the live demo
+        run: |
+          code=$(curl -sS -m 90 -o /dev/null -w "%{http_code}" https://research-agent-8042.onrender.com/health)
+          echo "health -> $code"
